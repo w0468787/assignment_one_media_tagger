@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "X5UNSdeg/DGNQY7ZDtOh8XH986FUAeHKpZvaPdGGmAMbyxTN+J9nCTcvgyIprSA9iZG+sgLyCplKE18oaXA0gA==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\heral\\School\\C#\\Assignments\\first_assign\\assignment_one\\assignment_one\\assignment_one.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\heral\\.nuget\\packages\\taglibsharp\\2.3.0\\taglibsharp.2.3.0.nupkg.sha512"
+  ],
+  "logs": []
+}

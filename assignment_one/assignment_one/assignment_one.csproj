@@ -1,0 +1,36 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net7.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="anotherPlaceHolder.png" />
+    <None Remove="eighth_note.png" />
+    <None Remove="fileexplorerimage.png" />
+    <None Remove="pause.png" />
+    <None Remove="placeHolder.png" />
+    <None Remove="play.png" />
+    <None Remove="square.png" />
+    <None Remove="tag_editor.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="TagLibSharp" Version="2.3.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="anotherPlaceHolder.png" />
+    <Resource Include="eighth_note.png" />
+    <Resource Include="fileexplorerimage.png" />
+    <Resource Include="pause.png" />
+    <Resource Include="placeHolder.png" />
+    <Resource Include="play.png" />
+    <Resource Include="square.png" />
+    <Resource Include="tag_editor.png" />
+  </ItemGroup>
+
+</Project>
