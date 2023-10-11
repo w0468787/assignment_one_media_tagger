@@ -7,8 +7,52 @@
         mc:Ignorable="d"
         Title="Media Tagger" Height="450" Width="800">
 
-    <StackPanel Background="AliceBlue">
-        <local:MediaTagger/>
-    </StackPanel>
+    <StackPanel>
+        <Menu>
+            <MenuItem Header="File">
+                <MenuItem Header="Open MP3"></MenuItem>
+                <MenuItem Header="Tag Current MP3"></MenuItem>
+                <MenuItem Header="Exit"></MenuItem>
+            </MenuItem>
+            <MenuItem Header="Edit"></MenuItem>
+            <MenuItem Header="Media">
+                <MenuItem Header="Play"></MenuItem>
+                <MenuItem Header="Pause"></MenuItem>
+                <MenuItem Header="Stop"></MenuItem>
+            </MenuItem>
+        </Menu>
 
+        <StackPanel Orientation="Horizontal">
+
+            <StackPanel Height="304" VerticalAlignment="Top" HorizontalAlignment="Left">
+                <Button Width="50" Height="70" Margin="10" Background="Transparent">
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50"/>
+                        </ControlTemplate>
+                    </Button.Template>
+                    <Image Source="pack://application:,,,/fileExplorerImage.png" Stretch="Uniform"/>
+                </Button>
+
+                <Button Width="50" Height="70" Margin="10">
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50"/>
+                        </ControlTemplate>
+                    </Button.Template>
+                    <Image Source="pack://application:,,,/eighth_note.png" Stretch="Uniform"/>
+                </Button>
+
+                <Button Width="50" Height="70" Margin="10">
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50"/>
+                        </ControlTemplate>
+                    </Button.Template>
+                    <Image Source="pack://application:,,,/tag_editor.png" Stretch="Uniform" Height="50" VerticalAlignment="Bottom"/>
+                </Button>
+            </StackPanel>
+            <local:MediaTagger Width="715"/>
+        </StackPanel>
+    </StackPanel>
 </Window>
