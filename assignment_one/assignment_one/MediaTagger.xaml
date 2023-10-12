@@ -6,36 +6,46 @@
              xmlns:local="clr-namespace:assignment_one"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <Style TargetType="{x:Type Button}">
+            <Setter Property="Width" Value="50"/>
+            <Setter Property="Height" Value="50"/>
+            <Setter Property="Margin" Value="10"/>
+        </Style>
+    </UserControl.Resources>
     <StackPanel>
         <StackPanel>
-            <Image Height="350" Width="700" HorizontalAlignment="Right" Source="pack://application:,,,/textured.jpg" Stretch="Fill"></Image>
+            <Image x:Name="albumCover" Height="340" Width="700"  HorizontalAlignment="Right" Source="pack://application:,,,/Images/textured.jpg" Stretch="Fill"></Image>
+            <MediaElement x:Name="myMediaElement" LoadedBehavior="Manual" UnloadedBehavior="Manual" MediaOpened="MediaElement_MediaOpened"></MediaElement>
         </StackPanel>
-        <StackPanel Orientation="Horizontal" Height="80" >
-            <Button Width="50" Height="50" Margin="10">
+        <StackPanel Orientation="Horizontal" Height="80" HorizontalAlignment="Right" >
+            <Button x:Name="PlayBtn" Command="local:CustomCommands.PlayMediaCommand">
                 <Button.Template>
                     <ControlTemplate TargetType="{x:Type Button}">
                         <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50"/>
                     </ControlTemplate>
                 </Button.Template>
-                <Image Source="pack://application:,,,/play.png" Stretch="Uniform"/>
+                <Image Source="pack://application:,,,/Images/play.png" Stretch="Uniform" HorizontalAlignment="Right" Width="50"/>
             </Button>
-            <Button Width="50" Height="50" Margin="10">
+            <Button x:Name="PauseBtn" Command="local:CustomCommands.PauseMediaCommand">
                 <Button.Template>
                     <ControlTemplate TargetType="{x:Type Button}">
                         <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50"/>
                     </ControlTemplate>
                 </Button.Template>
-                <Image Source="pack://application:,,,/pause.png" Stretch="Uniform"/>
+                <Image Source="pack://application:,,,/Images/pause.png" Stretch="Uniform" Height="50" VerticalAlignment="Top"/>
             </Button>
-            <Button Width="50" Height="50" Margin="10">
+            <Button x:Name="StopBtn" Command="local:CustomCommands.StopMediaCommand">
                 <Button.Template>
                     <ControlTemplate TargetType="{x:Type Button}">
                         <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50"/>
                     </ControlTemplate>
                 </Button.Template>
-                <Image Source="pack://application:,,,/square.png" Stretch="Uniform"/>
+                <Image Source="pack://application:,,,/Images/square.png" Stretch="Uniform"/>
             </Button>
-            <Rectangle Width="500" Height="50" Margin="20" Fill="Orange"/>
+            <TextBlock x:Name="timeDisplay" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="50" Height="50" Margin="5" Text="00:00:00"/>
+            <Slider x:Name="mediaProgressBar" Height="20" Width="450" ValueChanged="mediaProgressBar_ValueChanged"/>
+
 
         </StackPanel>
     </StackPanel>

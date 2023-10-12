@@ -11,6 +11,7 @@
     <None Remove="anotherPlaceHolder.png" />
     <None Remove="eighth_note.png" />
     <None Remove="fileexplorerimage.png" />
+    <None Remove="Images\textured.jpg" />
     <None Remove="pause.png" />
     <None Remove="placeHolder.png" />
     <None Remove="play.png" />
@@ -23,14 +24,15 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="anotherPlaceHolder.png" />
-    <Resource Include="eighth_note.png" />
-    <Resource Include="fileexplorerimage.png" />
-    <Resource Include="pause.png" />
-    <Resource Include="placeHolder.png" />
-    <Resource Include="play.png" />
-    <Resource Include="square.png" />
-    <Resource Include="tag_editor.png" />
+    <Resource Include="Images\anotherPlaceHolder.png" />
+    <Resource Include="Images\eighth_note.png" />
+    <Resource Include="Images\fileexplorerimage.png" />
+    <Resource Include="Images\pause.png" />
+    <Resource Include="Images\placeHolder.png" />
+    <Resource Include="Images\play.png" />
+    <Resource Include="Images\square.png" />
+    <Resource Include="Images\tag_editor.png" />
+    <Resource Include="Images\textured.jpg" />
   </ItemGroup>
 
 </Project>

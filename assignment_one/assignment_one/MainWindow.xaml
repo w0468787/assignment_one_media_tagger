@@ -5,33 +5,36 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:assignment_one"
         mc:Ignorable="d"
-        Title="Media Tagger" Height="450" Width="800">
-
+        Title="Media Tagger" Height="500" Width="800">
+    <Window.CommandBindings>
+        <CommandBinding Command="local:CustomCommands.OpenMp3Command" Executed="OpenMp3Command_Executed" CanExecute="OpenMp3Command_CanExecute"/>
+    </Window.CommandBindings>
+    
     <StackPanel>
         <Menu>
             <MenuItem Header="File">
-                <MenuItem Header="Open MP3"></MenuItem>
-                <MenuItem Header="Tag Current MP3"></MenuItem>
-                <MenuItem Header="Exit"></MenuItem>
+                <MenuItem x:Name="OpenFileBtn" Header="Open MP3" Command="local:CustomCommands.OpenMp3Command"></MenuItem>
+                <MenuItem x:Name="OpenTagsBtn" Header="Tag Current MP3"></MenuItem>
+                <MenuItem x:Name="ExitBtn" Header="Exit"></MenuItem>
             </MenuItem>
-            <MenuItem Header="Edit"></MenuItem>
+            <MenuItem x:Name="EditTagsMp3Btn" Header="Edit"></MenuItem>
             <MenuItem Header="Media">
-                <MenuItem Header="Play"></MenuItem>
-                <MenuItem Header="Pause"></MenuItem>
-                <MenuItem Header="Stop"></MenuItem>
+                <MenuItem x:Name="PlayBtn" Header="Play" Command="local:CustomCommands.PlayMediaCommand"></MenuItem>
+                <MenuItem x:Name="PauseBtn" Header="Pause" Command="local:CustomCommands.PauseMediaCommand"></MenuItem>
+                <MenuItem x:Name="StopBtn" Header="Stop" Command="local:CustomCommands.StopMediaCommand"></MenuItem>
             </MenuItem>
         </Menu>
 
         <StackPanel Orientation="Horizontal">
 
             <StackPanel Height="304" VerticalAlignment="Top" HorizontalAlignment="Left">
-                <Button Width="50" Height="70" Margin="10" Background="Transparent">
+                <Button x:Name="OpenFileImage"  Width="50" Height="70" Margin="10" Background="Transparent" Command="local:CustomCommands.OpenMp3Command">
                     <Button.Template>
                         <ControlTemplate TargetType="Button">
                             <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50"/>
                         </ControlTemplate>
                     </Button.Template>
-                    <Image Source="pack://application:,,,/fileExplorerImage.png" Stretch="Uniform"/>
+                    <Image Source="pack://application:,,,/Images/fileExplorerImage.png" Stretch="Uniform"/>
                 </Button>
 
                 <Button Width="50" Height="70" Margin="10">
@@ -40,19 +43,19 @@
                             <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50"/>
                         </ControlTemplate>
                     </Button.Template>
-                    <Image Source="pack://application:,,,/eighth_note.png" Stretch="Uniform"/>
+                    <Image Source="pack://application:,,,/Images/eighth_note.png" Stretch="Uniform"/>
                 </Button>
 
-                <Button Width="50" Height="70" Margin="10">
+                <Button x:Name="TagMp3Image"  Width="50" Height="70" Margin="10">
                     <Button.Template>
                         <ControlTemplate TargetType="Button">
                             <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50"/>
                         </ControlTemplate>
                     </Button.Template>
-                    <Image Source="pack://application:,,,/tag_editor.png" Stretch="Uniform" Height="50" VerticalAlignment="Bottom"/>
+                    <Image Source="pack://application:,,,/Images/tag_editor.png" Stretch="Uniform" Height="50" VerticalAlignment="Bottom"/>
                 </Button>
             </StackPanel>
-            <local:MediaTagger Width="715"/>
+            <local:MediaTagger x:Name="myMediaPlayer" Height="420"/>
         </StackPanel>
     </StackPanel>
 </Window>
