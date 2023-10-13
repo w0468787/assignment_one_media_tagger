@@ -14,6 +14,8 @@ namespace assignment_one
         public static readonly RoutedUICommand PauseMediaCommand = new RoutedUICommand("Pause", "Pause", typeof(MainWindow));
         public static readonly RoutedUICommand StopMediaCommand = new RoutedUICommand("Stop", "Stop", typeof(MainWindow));
         public static readonly RoutedUICommand TagMp3Command=new RoutedUICommand("Tag MP3","TagMp3",typeof(CustomCommands));
+        public static readonly RoutedUICommand SaveMediaTagsCommand = new RoutedUICommand("Save Media Tags", "SaveMediaTags", typeof(CustomCommands));
+
     }
 }
 

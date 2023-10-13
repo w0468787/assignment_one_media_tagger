@@ -29,93 +29,76 @@ namespace assignment_one
 
          public MediaTagger()
         {
+    
             InitializeComponent();
-            
-            this.DataContext = this;
+
+            this.DataContext=this;
         }
         private void MediaElement_MediaOpened(object sender, RoutedEventArgs e)
         {
 
 
             // Check if the media finished calculating its total time
-            if (myMediaElement.Source != null && myMediaElement.NaturalDuration.HasTimeSpan)
-            {
+            
                 // Get the file path of the opened media element
                 string filePath = myMediaElement.Source.LocalPath;
 
-                this.currentFile = TagLib.File.Create(filePath);
-                // Set the maximum value of the slider to the total time of the media in seconds
-                mediaProgressBar.Maximum = myMediaElement.NaturalDuration.TimeSpan.TotalSeconds;
-                if (currentFile.Tag.Pictures.Length > 0)
-                {
-                    
-                }
-
-                DispatcherTimer timer = new DispatcherTimer();
-                timer.Interval = TimeSpan.FromSeconds(1);
-                timer.Tick += (s, args) =>
-                {
-                    //NOT WORKING slider wont visually update
-                    // Update slider position based on media element's position
-                    mediaProgressBar.Value = myMediaElement.Position.TotalSeconds;
-                };
-                
-                
-                // Start the timer
-                timer.Start();
-            }
-            else
-            {
-                MessageBox.Show("Error: Media duration not available.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                Console.WriteLine($"Media opened. Duration: {myMediaElement.NaturalDuration.TimeSpan}");
-            }
+                currentFile = TagLib.File.Create(filePath);
+               
         }
-
         private void mediaProgressBar_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            // Update TextBlock with the current position of the Slider in hh:mm:ss format
-            int currentPositionInSeconds = (int)mediaProgressBar.Value;
-            TimeSpan currentPosition = TimeSpan.FromSeconds(currentPositionInSeconds);
-            timeDisplay.Text = $"{currentPosition.Hours:D2}:{currentPosition.Minutes:D2}:{currentPosition.Seconds:D2}";
+            tagEditorMenu.Visibility = Visibility.Visible;
         }
 
-        //TESTING PURPOSES
-        private void AlbumCover_MouseLeftDown(object sender, MouseButtonEventArgs e)
-        {
-            // When the image is clicked, make the tag editor menu visible
-            tagBanner.Visibility = Visibility.Visible;
-            tagEditorMenu.Visibility= Visibility.Visible;
-        }
-
-        private void MediaElement_Unloaded(object sender, RoutedEventArgs e)
-        {
-
-        }
-
+        
         //currentFile gets set above when media is opened but its not saved (always null on save button clicked)
-        private void SaveButton_Click(object sender, RoutedEventArgs e)
+        public void saveTags()
         {
+            string filePath = myMediaElement.Source.LocalPath;
+            currentFile = TagLib.File.Create(filePath);
             // Ensure currentFile is not null
             if (this.currentFile != null)
             {
+                if (myMediaElement != null && myMediaElement.Source != null && myMediaElement.CanPause)
+                {
+                    myMediaElement.Pause();
+                    myMediaElement.Close();
+                }
+                
+                //UI PROBLEM always updates to xaml text value and not typed value
                 // Update tags from TextBox values
                 currentFile.Tag.Title = titleLabel.Text;
+                currentFile.Tag.Performers = new[] { performerLabel.Text }; // Assuming Performers is an array
                 currentFile.Tag.Album = albumLabel.Text;
 
                 // Parse release date and update the Year tag
-                if (UInt32.TryParse(releaseDateLabel.Text, out uint releaseYear))
+                string temp = releaseDateLabel.Text;
+                try
                 {
-                    currentFile.Tag.Year = releaseYear;
+                    uint releaseYear = UInt32.Parse(temp);
+                        currentFile.Tag.Year = releaseYear;
                 }
-                else
+                catch (FormatException)
                 {
-                    // Handle invalid release date input
-                    MessageBox.Show("Invalid release date input!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                    return;
+                    // Handle parsing failure (invalid format)
+                    MessageBox.Show("Invalid release date input! Please enter a valid numeric year.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
-
+               
                 // Save changes to the file
                 currentFile.Save();
+                MessageBox.Show("Tag Updates Saved","Message",MessageBoxButton.OK);
+
+                // Close the current file and release resources
+                currentFile.Dispose();
+                currentFile = null;
+
+                // Stop and close the media element if it's playing
+                if (myMediaElement != null && myMediaElement.Source != null)
+                {
+                    myMediaElement.Stop();
+                    myMediaElement.Close();
+                }
 
                 // Hide the tag editor menu after saving
                 tagEditorMenu.Visibility = Visibility.Collapsed;
@@ -126,9 +109,75 @@ namespace assignment_one
                 MessageBox.Show("Error: File or tags not available.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
+
         public void showEditorMenu()
         {
+           string filePath = myMediaElement.Source.LocalPath;
+           currentFile = TagLib.File.Create(filePath);
+            //setup the menu with file tags in the boxes
+            // Check and set the Album tag
+            if (!string.IsNullOrEmpty(currentFile.Tag.Album))
+            {
+                albumLabel.Text = currentFile.Tag.Album;
+            }
+            else
+            {
+                albumLabel.Text = "Unknown Album";
+            }
+
+            // Check and set the Performers tag
+            if (currentFile.Tag.Performers != null && currentFile.Tag.Performers.Length > 0)
+            {
+                performerLabel.Text = string.Join(", ", currentFile.Tag.Performers);
+            }
+            else
+            {
+                performerLabel.Text = "Unknown Performer";
+            }
+
+            // Check and set the Year tag
+            if (currentFile.Tag.Year > 0)
+            {
+                releaseDateLabel.Text = currentFile.Tag.Year.ToString();
+            }
+            else
+            {
+                releaseDateLabel.Text = "Unknown Year";
+            }
+
+            // Check and set the Title tag
+            if (!string.IsNullOrEmpty(currentFile.Tag.Title))
+            {
+                titleLabel.Text = currentFile.Tag.Title;
+            }
+            else
+            {
+                titleLabel.Text = "Unknown Title";
+            }
+
             tagEditorMenu.Visibility = Visibility.Visible;
+            //tagEditorMenu.IsVisible = true;
+        }
+        public string getTagsAsString()
+        {
+            string tagsString = "";
+
+            if (currentFile != null && currentFile.Tag != null)
+            {
+                tagsString += $"Title: {currentFile.Tag.Title}\n";
+                tagsString += $"Album: {currentFile.Tag.Album}\n";
+                tagsString += $"Performers: {string.Join(", ", currentFile.Tag.Performers)}\n";
+                tagsString += $"Year: {currentFile.Tag.Year}\n";
+                tagsString += $"Genres: {string.Join(", ", currentFile.Tag.Genres)}\n";
+
+                // Add more tags as needed
+            }
+            else
+            {
+                tagsString = "Tags not available.";
+            }
+
+            return tagsString;
         }
     }
 }

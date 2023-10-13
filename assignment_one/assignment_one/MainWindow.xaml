@@ -55,8 +55,9 @@
                     </Button.Template>
                     <Image Source="pack://application:,,,/Images/tag_editor.png" Stretch="Uniform" Height="50" VerticalAlignment="Bottom"/>
                 </Button>
+                <TextBlock x:Name="tagTester" Height="50" Width="50" FontSize="8"></TextBlock>
             </StackPanel>
-            <local:MediaTagger x:Name="myMediaPlayer" Height="420"/>
+            <local:MediaTagger Height="420"/>
            
         </StackPanel>
     </StackPanel>

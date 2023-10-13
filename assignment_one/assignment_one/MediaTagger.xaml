@@ -13,23 +13,26 @@
             <Setter Property="Margin" Value="10"/>
         </Style>
     </UserControl.Resources>
+    <UserControl.CommandBindings>
+        <CommandBinding Command="local:CustomCommands.SaveMediaTagsCommand"></CommandBinding>
+    </UserControl.CommandBindings>
     <StackPanel HorizontalAlignment="Right">
         <StackPanel Width="714">
             <Grid>
-                <Image x:Name="albumCover" Height="340" Width="700"  HorizontalAlignment="Right" Source="pack://application:,,,/Images/textured.jpg" Stretch="Fill"
-                       MouseLeftButtonDown="AlbumCover_MouseLeftDown"></Image>
+                <Image x:Name="AlbumCover" Height="340" Width="700"  HorizontalAlignment="Right" Source="pack://application:,,,/Images/textured.jpg" Stretch="Fill"
+                       ></Image>
                 <MediaElement x:Name="myMediaElement" LoadedBehavior="Manual" UnloadedBehavior="Manual" MediaOpened="MediaElement_MediaOpened"></MediaElement>
                 <!-- Blue Text Banner at the Bottom -->
-                <TextBlock x:Name="tagBanner" VerticalAlignment="Bottom" Background="#800000FF" Foreground="White" Text="Your Text Here" Height="50" Width="700" HorizontalAlignment="Right" TextAlignment="Right" Visibility="Hidden"/>
+                <TextBlock x:Name="tagBanner" VerticalAlignment="Bottom" Background="#800000FF" Foreground="White" Text="awaiting file" Height="50" Width="700" HorizontalAlignment="Right" TextAlignment="Right" Visibility="Visible"/>
 
                 <!-- Invisible Tag Editor Menu at the Top -->
-                <StackPanel x:Name="tagEditorMenu" VerticalAlignment="Top" Background="#800000FF" Height="330" Width="700" Margin="10,0,0,0" Visibility="Hidden">
+                <StackPanel x:Name="tagEditorMenu" VerticalAlignment="Top" Background="#800000FF" Height="330" Width="700" Margin="10,0,0,0" Visibility="Collapsed">
                     <TextBox x:Name="editorHeader" Background="Transparent" FontSize="50" Text="Tag Editor" Foreground="Wheat"></TextBox>
-                    <TextBox x:Name="titleLabel" Background="Transparent" Foreground="White" Height="30" Width="700" Margin="10,10,0,0" />
-                    <TextBox x:Name="performerLabel" Background="Transparent" Foreground="White" Height="30" Width="700" Margin="10,10,0,0" />
-                    <TextBox x:Name="albumLabel" Background="Transparent" Foreground="White" Height="30" Width="700" Margin="10,10,0,0" />
-                    <TextBox x:Name="releaseDateLabel" Background="Transparent" Foreground="White" Height="30" Width="700" Margin="10,10,0,0" />
-                    <Button  x:Name="SaveTagsBtn" Content="Save" Width="100" Height="30" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="10,10,0,0" Click="SaveButton_Click"/>
+                    <TextBox x:Name="titleLabel" Background="Transparent" Foreground="White" Height="30" Width="700" Margin="10,10,0,0" Text="Title" />
+                    <TextBox x:Name="performerLabel" Background="Transparent" Foreground="White" Height="30" Width="700" Margin="10,10,0,0" Text="Artist"/>
+                    <TextBox x:Name="albumLabel" Background="Transparent" Foreground="White" Height="30" Width="700" Margin="10,10,0,0" Text="Album"/>
+                    <TextBox x:Name="releaseDateLabel" Background="Transparent" Foreground="White" Height="30" Width="700" Margin="10,10,0,0" Text="Year"/>
+                    <Button x:Name="SaveTagsBtn" Command="local:CustomCommands.SaveMediaTagsCommand" Content="Save" Width="100" Height="30" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="10,10,0,0" />
                 </StackPanel>
             </Grid>
         </StackPanel>

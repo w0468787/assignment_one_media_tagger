@@ -29,12 +29,14 @@ namespace assignment_one
         {
             InitializeComponent();
         
-
             CommandBindings.Add(new CommandBinding(CustomCommands.OpenMp3Command, OpenMp3Command_Executed, OpenMp3Command_CanExecute));
             CommandBindings.Add(new CommandBinding(CustomCommands.PlayMediaCommand, PlayCommand_Executed, PlayCommand_CanExecute));
             CommandBindings.Add(new CommandBinding(CustomCommands.PauseMediaCommand, PauseCommand_Executed, PauseCommand_CanExecute));
             CommandBindings.Add(new CommandBinding(CustomCommands.StopMediaCommand, StopCommand_Executed, StopCommand_CanExecute));
             CommandBindings.Add(new CommandBinding(CustomCommands.TagMp3Command, TagMp3Command_Executed, TagMp3Command_CanExecute));
+            CommandBindings.Add(new CommandBinding(CustomCommands.SaveMediaTagsCommand, SaveMediaTagsCommand_Executed, SaveMediaTagsCommand_CanExecute));
+
+
         }
         private void OpenMp3Command_Executed(object sender, ExecutedRoutedEventArgs e)
         {
@@ -47,7 +49,7 @@ namespace assignment_one
                     // Handle the selected MP3 file path (open it, process it, etc.)
                     string selectedFilePath = openFileDialog.FileName;
 
-                    // Set the source of your media element and play it
+                    // Set the source of media element and play it
                     mediaTagger.myMediaElement.Source = new Uri(selectedFilePath);
                     mediaTagger.myMediaElement.Play();
 
@@ -55,7 +57,7 @@ namespace assignment_one
             }
             catch (Exception ex)
             {
-                // Handle exceptions here, for example, show an error message to the user
+                // Handle exceptions show an error message to the user
                 MessageBox.Show($"Error occurred: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
@@ -92,13 +94,14 @@ namespace assignment_one
             {
                 mediaTagger.myMediaElement.Pause();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 MessageBox.Show($"Error occurred: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-           
+
         }
 
+        //pause can execute if mediaElement has a source and is playing
         private void PauseCommand_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
             e.CanExecute = mediaTagger.myMediaElement != null && mediaTagger.myMediaElement.Source != null && mediaTagger.myMediaElement.CanPause;
@@ -106,7 +109,7 @@ namespace assignment_one
 
         private void StopCommand_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            // Handle Stop command here
+            // calls built in media element command
             mediaTagger.myMediaElement.Stop();
         }
 
@@ -119,13 +122,29 @@ namespace assignment_one
         //not working tried both a new method and mediaTagger.TagEditorMenu.visibility=visibility.visible;
         private void TagMp3Command_Executed( object sender, ExecutedRoutedEventArgs e)
         {
-            mediaTagger.showEditorMenu();
+                mediaTagger.showEditorMenu();
+                
+            //testing text box to try and display tag elements because of extreme UI difficulty
+                tagTester.Text = mediaTagger.getTagsAsString();
 
         }
         
+       
         private void TagMp3Command_CanExecute( object sender, CanExecuteRoutedEventArgs e)
         {
             e.CanExecute=mediaTagger.myMediaElement != null &&mediaTagger.myMediaElement.Source != null;
+        }
+
+        //have user control button subscribed to this save event
+        private void SaveMediaTagsCommand_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            mediaTagger.saveTags();
+        }
+
+        private void SaveMediaTagsCommand_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            // Can execute
+            e.CanExecute = true;
         }
     }
 }
