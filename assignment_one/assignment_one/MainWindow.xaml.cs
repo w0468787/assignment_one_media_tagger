@@ -116,6 +116,7 @@ namespace assignment_one
             e.CanExecute = mediaTagger.myMediaElement != null && mediaTagger.myMediaElement.Source != null;
         }
 
+        //not working tried both a new method and mediaTagger.TagEditorMenu.visibility=visibility.visible;
         private void TagMp3Command_Executed( object sender, ExecutedRoutedEventArgs e)
         {
             mediaTagger.showEditorMenu();

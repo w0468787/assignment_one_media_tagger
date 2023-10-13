@@ -48,19 +48,14 @@ namespace assignment_one
                 mediaProgressBar.Maximum = myMediaElement.NaturalDuration.TimeSpan.TotalSeconds;
                 if (currentFile.Tag.Pictures.Length > 0)
                 {
-                    IPicture picture = currentFile.Tag.Pictures[0];
-                    MemoryStream albumCoverStream = new MemoryStream(picture.Data.Data);
-                    BitmapImage albumCoverImage = new BitmapImage();
-                    albumCoverImage.BeginInit();
-                    albumCoverImage.StreamSource = albumCoverStream;
-                    albumCoverImage.EndInit();
-                    albumCover.Source = albumCoverImage;
+                    
                 }
 
                 DispatcherTimer timer = new DispatcherTimer();
                 timer.Interval = TimeSpan.FromSeconds(1);
                 timer.Tick += (s, args) =>
                 {
+                    //NOT WORKING slider wont visually update
                     // Update slider position based on media element's position
                     mediaProgressBar.Value = myMediaElement.Position.TotalSeconds;
                 };
@@ -96,6 +91,7 @@ namespace assignment_one
 
         }
 
+        //currentFile gets set above when media is opened but its not saved (always null on save button clicked)
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
             // Ensure currentFile is not null
