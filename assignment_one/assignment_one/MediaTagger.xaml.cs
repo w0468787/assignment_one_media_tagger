@@ -1,6 +1,7 @@
 ﻿using Microsoft.VisualBasic;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -15,6 +16,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
+using TagLib;
 
 namespace assignment_one
 {
@@ -41,9 +43,19 @@ namespace assignment_one
                 // Get the file path of the opened media element
                 string filePath = myMediaElement.Source.LocalPath;
 
-                currentFile = TagLib.File.Create(filePath);
+                this.currentFile = TagLib.File.Create(filePath);
                 // Set the maximum value of the slider to the total time of the media in seconds
                 mediaProgressBar.Maximum = myMediaElement.NaturalDuration.TimeSpan.TotalSeconds;
+                if (currentFile.Tag.Pictures.Length > 0)
+                {
+                    IPicture picture = currentFile.Tag.Pictures[0];
+                    MemoryStream albumCoverStream = new MemoryStream(picture.Data.Data);
+                    BitmapImage albumCoverImage = new BitmapImage();
+                    albumCoverImage.BeginInit();
+                    albumCoverImage.StreamSource = albumCoverStream;
+                    albumCoverImage.EndInit();
+                    albumCover.Source = albumCoverImage;
+                }
 
                 DispatcherTimer timer = new DispatcherTimer();
                 timer.Interval = TimeSpan.FromSeconds(1);
@@ -52,7 +64,8 @@ namespace assignment_one
                     // Update slider position based on media element's position
                     mediaProgressBar.Value = myMediaElement.Position.TotalSeconds;
                 };
-
+                
+                
                 // Start the timer
                 timer.Start();
             }
@@ -86,11 +99,10 @@ namespace assignment_one
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
             // Ensure currentFile is not null
-            if (currentFile != null)
+            if (this.currentFile != null)
             {
                 // Update tags from TextBox values
                 currentFile.Tag.Title = titleLabel.Text;
-                currentFile.Tag.Performers = new[] { performerLabel.Text };
                 currentFile.Tag.Album = albumLabel.Text;
 
                 // Parse release date and update the Year tag
