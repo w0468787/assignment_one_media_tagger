@@ -79,6 +79,7 @@ namespace assignment_one
             timeDisplay.Text = $"{currentPosition.Hours:D2}:{currentPosition.Minutes:D2}:{currentPosition.Seconds:D2}";
         }
 
+        //TESTING PURPOSES
         private void AlbumCover_MouseLeftDown(object sender, MouseButtonEventArgs e)
         {
             // When the image is clicked, make the tag editor menu visible
