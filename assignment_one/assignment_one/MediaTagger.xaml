@@ -6,11 +6,19 @@
              xmlns:local="clr-namespace:assignment_one"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+    <!-- Effective Css styling for buttons-->
     <UserControl.Resources>
         <Style TargetType="{x:Type Button}">
             <Setter Property="Width" Value="50"/>
             <Setter Property="Height" Value="50"/>
             <Setter Property="Margin" Value="10"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
         </Style>
     </UserControl.Resources>
     <UserControl.CommandBindings>
@@ -36,29 +44,15 @@
                 </StackPanel>
             </Grid>
         </StackPanel>
+        <!-- Buttons for pause play and stop -->
         <StackPanel Orientation="Horizontal" Height="80" HorizontalAlignment="Right" >
             <Button x:Name="PlayBtn" Command="local:CustomCommands.PlayMediaCommand">
-                <Button.Template>
-                    <ControlTemplate TargetType="{x:Type Button}">
-                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50"/>
-                    </ControlTemplate>
-                </Button.Template>
                 <Image Source="pack://application:,,,/Images/play.png" Stretch="Uniform" HorizontalAlignment="Right" Width="50"/>
             </Button>
             <Button x:Name="PauseBtn" Command="local:CustomCommands.PauseMediaCommand">
-                <Button.Template>
-                    <ControlTemplate TargetType="{x:Type Button}">
-                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50"/>
-                    </ControlTemplate>
-                </Button.Template>
                 <Image Source="pack://application:,,,/Images/pause.png" Stretch="Uniform" Height="50" VerticalAlignment="Top"/>
             </Button>
             <Button x:Name="StopBtn" Command="local:CustomCommands.StopMediaCommand">
-                <Button.Template>
-                    <ControlTemplate TargetType="{x:Type Button}">
-                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50"/>
-                    </ControlTemplate>
-                </Button.Template>
                 <Image Source="pack://application:,,,/Images/square.png" Stretch="Uniform"/>
             </Button>
             <TextBlock x:Name="timeDisplay" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="50" Height="50" Margin="5" Text="00:00:00"/>

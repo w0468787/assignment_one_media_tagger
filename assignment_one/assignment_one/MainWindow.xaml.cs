@@ -24,11 +24,11 @@ namespace assignment_one
     {
         // Instantiate the MediaTagger user control
         MediaTagger mediaTagger = new MediaTagger();
-        
+
         public MainWindow()
         {
             InitializeComponent();
-        
+
             CommandBindings.Add(new CommandBinding(CustomCommands.OpenMp3Command, OpenMp3Command_Executed, OpenMp3Command_CanExecute));
             CommandBindings.Add(new CommandBinding(CustomCommands.PlayMediaCommand, PlayCommand_Executed, PlayCommand_CanExecute));
             CommandBindings.Add(new CommandBinding(CustomCommands.PauseMediaCommand, PauseCommand_Executed, PauseCommand_CanExecute));
@@ -115,24 +115,24 @@ namespace assignment_one
 
         private void StopCommand_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
-            
+
             e.CanExecute = mediaTagger.myMediaElement != null && mediaTagger.myMediaElement.Source != null;
         }
 
         //not working tried both a new method and mediaTagger.TagEditorMenu.visibility=visibility.visible;
-        private void TagMp3Command_Executed( object sender, ExecutedRoutedEventArgs e)
+        private void TagMp3Command_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-                mediaTagger.showEditorMenu();
-                
+            mediaTagger.showEditorMenu();
+
             //testing text box to try and display tag elements because of extreme UI difficulty
-                tagTester.Text = mediaTagger.getTagsAsString();
+            tagTester.Text = mediaTagger.getTagsAsString();
 
         }
-        
-       
-        private void TagMp3Command_CanExecute( object sender, CanExecuteRoutedEventArgs e)
+
+
+        private void TagMp3Command_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
-            e.CanExecute=mediaTagger.myMediaElement != null &&mediaTagger.myMediaElement.Source != null;
+            e.CanExecute = mediaTagger.myMediaElement != null && mediaTagger.myMediaElement.Source != null;
         }
 
         //have user control button subscribed to this save event

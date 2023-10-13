@@ -27,31 +27,31 @@ namespace assignment_one
     {
         TagLib.File currentFile;
 
-         public MediaTagger()
+        public MediaTagger()
         {
-    
+
             InitializeComponent();
 
-            this.DataContext=this;
+            this.DataContext = this;
         }
         private void MediaElement_MediaOpened(object sender, RoutedEventArgs e)
         {
 
 
             // Check if the media finished calculating its total time
-            
-                // Get the file path of the opened media element
-                string filePath = myMediaElement.Source.LocalPath;
 
-                currentFile = TagLib.File.Create(filePath);
-               
+            // Get the file path of the opened media element
+            string filePath = myMediaElement.Source.LocalPath;
+
+            currentFile = TagLib.File.Create(filePath);
+
         }
         private void mediaProgressBar_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
             tagEditorMenu.Visibility = Visibility.Visible;
         }
 
-        
+
         //currentFile gets set above when media is opened but its not saved (always null on save button clicked)
         public void saveTags()
         {
@@ -65,7 +65,7 @@ namespace assignment_one
                     myMediaElement.Pause();
                     myMediaElement.Close();
                 }
-                
+
                 //UI PROBLEM always updates to xaml text value and not typed value
                 // Update tags from TextBox values
                 currentFile.Tag.Title = titleLabel.Text;
@@ -77,17 +77,17 @@ namespace assignment_one
                 try
                 {
                     uint releaseYear = UInt32.Parse(temp);
-                        currentFile.Tag.Year = releaseYear;
+                    currentFile.Tag.Year = releaseYear;
                 }
                 catch (FormatException)
                 {
                     // Handle parsing failure (invalid format)
                     MessageBox.Show("Invalid release date input! Please enter a valid numeric year.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
-               
+
                 // Save changes to the file
                 currentFile.Save();
-                MessageBox.Show("Tag Updates Saved","Message",MessageBoxButton.OK);
+                MessageBox.Show("Tag Updates Saved", "Message", MessageBoxButton.OK);
 
                 // Close the current file and release resources
                 currentFile.Dispose();
@@ -112,8 +112,8 @@ namespace assignment_one
 
         public void showEditorMenu()
         {
-           string filePath = myMediaElement.Source.LocalPath;
-           currentFile = TagLib.File.Create(filePath);
+            string filePath = myMediaElement.Source.LocalPath;
+            currentFile = TagLib.File.Create(filePath);
             //setup the menu with file tags in the boxes
             // Check and set the Album tag
             if (!string.IsNullOrEmpty(currentFile.Tag.Album))

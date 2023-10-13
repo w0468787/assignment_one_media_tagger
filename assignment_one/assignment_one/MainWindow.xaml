@@ -6,12 +6,14 @@
         xmlns:local="clr-namespace:assignment_one"
         mc:Ignorable="d"
         Title="Media Tagger" Height="500" Width="800">
+    <!-- Commands-->
     <Window.CommandBindings>
         <CommandBinding Command="local:CustomCommands.OpenMp3Command" Executed="OpenMp3Command_Executed" CanExecute="OpenMp3Command_CanExecute"/>
         <CommandBinding Command="local:CustomCommands.TagMp3Command" Executed="TagMp3Command_Executed" CanExecute="TagMp3Command_CanExecute"/>
     </Window.CommandBindings>
-    
-    <StackPanel> 
+
+    <StackPanel>
+        <!-- File open menu and subsequent buttons-->
         <Menu>
             <MenuItem Header="File">
                 <MenuItem x:Name="OpenFileBtn" Header="Open MP3" Command="local:CustomCommands.OpenMp3Command"></MenuItem>
@@ -27,7 +29,7 @@
         </Menu>
 
         <StackPanel Orientation="Horizontal">
-
+             <!-- Image Buttons side stack panel-->
             <StackPanel Height="304" VerticalAlignment="Top" HorizontalAlignment="Left">
                 <Button x:Name="OpenFileImage"  Width="50" Height="70" Margin="10" Background="Transparent" Command="local:CustomCommands.OpenMp3Command">
                     <Button.Template>
@@ -57,8 +59,9 @@
                 </Button>
                 <TextBlock x:Name="tagTester" Height="50" Width="50" FontSize="8"></TextBlock>
             </StackPanel>
+            <!-- User control instance-->
             <local:MediaTagger Height="420"/>
-           
+
         </StackPanel>
     </StackPanel>
 </Window>
