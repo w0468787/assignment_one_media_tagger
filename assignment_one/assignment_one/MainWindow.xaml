@@ -8,16 +8,17 @@
         Title="Media Tagger" Height="500" Width="800">
     <Window.CommandBindings>
         <CommandBinding Command="local:CustomCommands.OpenMp3Command" Executed="OpenMp3Command_Executed" CanExecute="OpenMp3Command_CanExecute"/>
+        <CommandBinding Command="local:CustomCommands.TagMp3Command" Executed="TagMp3Command_Executed" CanExecute="TagMp3Command_CanExecute"/>
     </Window.CommandBindings>
     
-    <StackPanel>
+    <StackPanel> 
         <Menu>
             <MenuItem Header="File">
                 <MenuItem x:Name="OpenFileBtn" Header="Open MP3" Command="local:CustomCommands.OpenMp3Command"></MenuItem>
-                <MenuItem x:Name="OpenTagsBtn" Header="Tag Current MP3"></MenuItem>
+                <MenuItem x:Name="OpenTagsBtn" Header="Tag Current MP3" Command="local:CustomCommands.TagMp3Command"></MenuItem>
                 <MenuItem x:Name="ExitBtn" Header="Exit"></MenuItem>
             </MenuItem>
-            <MenuItem x:Name="EditTagsMp3Btn" Header="Edit"></MenuItem>
+            <MenuItem x:Name="EditTagsMp3Btn" Header="Edit" Command="local:CustomCommands.TagMp3Command"></MenuItem>
             <MenuItem Header="Media">
                 <MenuItem x:Name="PlayBtn" Header="Play" Command="local:CustomCommands.PlayMediaCommand"></MenuItem>
                 <MenuItem x:Name="PauseBtn" Header="Pause" Command="local:CustomCommands.PauseMediaCommand"></MenuItem>
@@ -46,7 +47,7 @@
                     <Image Source="pack://application:,,,/Images/eighth_note.png" Stretch="Uniform"/>
                 </Button>
 
-                <Button x:Name="TagMp3Image"  Width="50" Height="70" Margin="10">
+                <Button x:Name="TagMp3Image"  Width="50" Height="70" Margin="10" Command="local:CustomCommands.TagMp3Command">
                     <Button.Template>
                         <ControlTemplate TargetType="Button">
                             <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50"/>
@@ -56,6 +57,7 @@
                 </Button>
             </StackPanel>
             <local:MediaTagger x:Name="myMediaPlayer" Height="420"/>
+           
         </StackPanel>
     </StackPanel>
 </Window>

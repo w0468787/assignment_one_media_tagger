@@ -13,10 +13,25 @@
             <Setter Property="Margin" Value="10"/>
         </Style>
     </UserControl.Resources>
-    <StackPanel>
-        <StackPanel>
-            <Image x:Name="albumCover" Height="340" Width="700"  HorizontalAlignment="Right" Source="pack://application:,,,/Images/textured.jpg" Stretch="Fill"></Image>
-            <MediaElement x:Name="myMediaElement" LoadedBehavior="Manual" UnloadedBehavior="Manual" MediaOpened="MediaElement_MediaOpened"></MediaElement>
+    <StackPanel HorizontalAlignment="Right">
+        <StackPanel Width="714">
+            <Grid>
+                <Image x:Name="albumCover" Height="340" Width="700"  HorizontalAlignment="Right" Source="pack://application:,,,/Images/textured.jpg" Stretch="Fill"
+                       MouseLeftButtonDown="AlbumCover_MouseLeftDown"></Image>
+                <MediaElement x:Name="myMediaElement" LoadedBehavior="Manual" UnloadedBehavior="Manual" MediaOpened="MediaElement_MediaOpened"></MediaElement>
+                <!-- Blue Text Banner at the Bottom -->
+                <TextBlock x:Name="tagBanner" VerticalAlignment="Bottom" Background="#800000FF" Foreground="White" Text="Your Text Here" Height="50" Width="700" HorizontalAlignment="Right" TextAlignment="Right" Visibility="Hidden"/>
+
+                <!-- Invisible Tag Editor Menu at the Top -->
+                <StackPanel x:Name="tagEditorMenu" VerticalAlignment="Top" Background="#800000FF" Height="330" Width="700" Margin="10,0,0,0" Visibility="Hidden">
+                    <TextBox x:Name="editorHeader" Background="Transparent" FontSize="50" Text="Tag Editor" Foreground="Wheat"></TextBox>
+                    <TextBox x:Name="titleLabel" Background="Transparent" Foreground="White" Height="30" Width="700" Margin="10,10,0,0" />
+                    <TextBox x:Name="performerLabel" Background="Transparent" Foreground="White" Height="30" Width="700" Margin="10,10,0,0" />
+                    <TextBox x:Name="albumLabel" Background="Transparent" Foreground="White" Height="30" Width="700" Margin="10,10,0,0" />
+                    <TextBox x:Name="releaseDateLabel" Background="Transparent" Foreground="White" Height="30" Width="700" Margin="10,10,0,0" />
+                    <Button  x:Name="SaveTagsBtn" Content="Save" Width="100" Height="30" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="10,10,0,0" Click="SaveButton_Click"/>
+                </StackPanel>
+            </Grid>
         </StackPanel>
         <StackPanel Orientation="Horizontal" Height="80" HorizontalAlignment="Right" >
             <Button x:Name="PlayBtn" Command="local:CustomCommands.PlayMediaCommand">
@@ -50,3 +65,4 @@
         </StackPanel>
     </StackPanel>
 </UserControl>
+ 

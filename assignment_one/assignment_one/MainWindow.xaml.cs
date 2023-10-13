@@ -34,13 +34,12 @@ namespace assignment_one
             CommandBindings.Add(new CommandBinding(CustomCommands.PlayMediaCommand, PlayCommand_Executed, PlayCommand_CanExecute));
             CommandBindings.Add(new CommandBinding(CustomCommands.PauseMediaCommand, PauseCommand_Executed, PauseCommand_CanExecute));
             CommandBindings.Add(new CommandBinding(CustomCommands.StopMediaCommand, StopCommand_Executed, StopCommand_CanExecute));
+            CommandBindings.Add(new CommandBinding(CustomCommands.TagMp3Command, TagMp3Command_Executed, TagMp3Command_CanExecute));
         }
         private void OpenMp3Command_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.Filter = "MP3 files (*.mp3)|*.mp3";
-
-
             try
             {
                 if (openFileDialog.ShowDialog() == true)
@@ -51,7 +50,6 @@ namespace assignment_one
                     // Set the source of your media element and play it
                     mediaTagger.myMediaElement.Source = new Uri(selectedFilePath);
                     mediaTagger.myMediaElement.Play();
-                    
 
                 }
             }
@@ -116,6 +114,17 @@ namespace assignment_one
         {
             
             e.CanExecute = mediaTagger.myMediaElement != null && mediaTagger.myMediaElement.Source != null;
+        }
+
+        private void TagMp3Command_Executed( object sender, ExecutedRoutedEventArgs e)
+        {
+            mediaTagger.showEditorMenu();
+
+        }
+        
+        private void TagMp3Command_CanExecute( object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute=mediaTagger.myMediaElement != null &&mediaTagger.myMediaElement.Source != null;
         }
     }
 }

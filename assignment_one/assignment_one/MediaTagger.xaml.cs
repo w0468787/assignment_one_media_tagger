@@ -24,8 +24,6 @@ namespace assignment_one
     public partial class MediaTagger : UserControl
     {
         TagLib.File currentFile;
-        private DispatcherTimer timer;
-        private TimeSpan TotalTime;
 
          public MediaTagger()
         {
@@ -40,6 +38,10 @@ namespace assignment_one
             // Check if the media finished calculating its total time
             if (myMediaElement.Source != null && myMediaElement.NaturalDuration.HasTimeSpan)
             {
+                // Get the file path of the opened media element
+                string filePath = myMediaElement.Source.LocalPath;
+
+                currentFile = TagLib.File.Create(filePath);
                 // Set the maximum value of the slider to the total time of the media in seconds
                 mediaProgressBar.Maximum = myMediaElement.NaturalDuration.TimeSpan.TotalSeconds;
 
@@ -69,9 +71,55 @@ namespace assignment_one
             timeDisplay.Text = $"{currentPosition.Hours:D2}:{currentPosition.Minutes:D2}:{currentPosition.Seconds:D2}";
         }
 
+        private void AlbumCover_MouseLeftDown(object sender, MouseButtonEventArgs e)
+        {
+            // When the image is clicked, make the tag editor menu visible
+            tagBanner.Visibility = Visibility.Visible;
+            tagEditorMenu.Visibility= Visibility.Visible;
+        }
+
         private void MediaElement_Unloaded(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void SaveButton_Click(object sender, RoutedEventArgs e)
+        {
+            // Ensure currentFile is not null
+            if (currentFile != null)
+            {
+                // Update tags from TextBox values
+                currentFile.Tag.Title = titleLabel.Text;
+                currentFile.Tag.Performers = new[] { performerLabel.Text };
+                currentFile.Tag.Album = albumLabel.Text;
+
+                // Parse release date and update the Year tag
+                if (UInt32.TryParse(releaseDateLabel.Text, out uint releaseYear))
+                {
+                    currentFile.Tag.Year = releaseYear;
+                }
+                else
+                {
+                    // Handle invalid release date input
+                    MessageBox.Show("Invalid release date input!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+
+                // Save changes to the file
+                currentFile.Save();
+
+                // Hide the tag editor menu after saving
+                tagEditorMenu.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                // Handle null currentFile or currentFile.Tag
+                MessageBox.Show("Error: File or tags not available.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+        public void showEditorMenu()
+        {
+            tagEditorMenu.Visibility = Visibility.Visible;
         }
     }
 }
